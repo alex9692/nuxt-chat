@@ -72,6 +72,14 @@
         </ul>
       </aside>
     </div>
+    <div class="container sub-ft">
+      <nuxt-link to="/" class="button is-rounded is-outlined is-dark align-center">
+        <span class="icon" style="margin-right:0.25rem">
+          <i class="fas fa-angle-left"></i>
+        </span>
+        <span>Go Back</span></nuxt-link
+      >
+    </div>
   </div>
 </template>
 
@@ -150,5 +158,9 @@ export default {
 }
 .menu {
   padding: 3rem 0.5rem;
+}
+.align-center {
+  display: flex;
+  align-items: center;
 }
 </style>

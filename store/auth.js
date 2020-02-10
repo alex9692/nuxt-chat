@@ -60,5 +60,8 @@ export const actions = {
 export const getters = {
   isAuth: state => {
     return !!state.token;
+  },
+  getUser: state => {
+    return JSON.parse(JSON.stringify(state.user));
   }
 };

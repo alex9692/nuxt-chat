@@ -16,8 +16,8 @@
       </div>
       <div class="column left">
         <ul class="nav-list left" v-show="isAuth">
-          <nuxt-link class="nav-list-item text-nobreak" to="/createRoom"
-            ><li>Create Chat Room</li></nuxt-link
+          <nuxt-link class="nav-list-item text-nobreak" to="/manage"
+            ><li>Manage</li></nuxt-link
           >
           <nuxt-link class="nav-list-item text-nobreak" to="/room"
             ><li>Enter Chat Room</li></nuxt-link

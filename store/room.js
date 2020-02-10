@@ -15,7 +15,7 @@ export const mutations = {
   },
   SET_ACTIVEROOM: (state, payload) => {
     state.activeRoom = payload;
-  },
+  }
 };
 
 export const actions = {
@@ -74,5 +74,8 @@ export const getters = {
     return state.allRooms.filter(el => {
       return !state.myRooms.find(cur => cur._id === el._id);
     });
+  },
+  getMyRooms(state) {
+    return JSON.parse(JSON.stringify(state.myRooms));
   }
 };
