@@ -54,3 +54,23 @@ exports.getAllUsers = async (req, res, next) => {
     next(errorHandler(error.message));
   }
 };
+
+exports.updateUserInfo = async (req, res, next) => {
+  try {
+    const { id } = req.user;
+    const user = await User.findById(id);
+    for (let key in req.body) {
+      user[key] = req.body[key];
+    }
+    const newUser = await user.save();
+    res.status(200).json({
+      status: "success",
+      data: {
+        user: newUser
+      }
+    });
+  } catch (error) {
+    next(errorHandler(error.message));
+  }
+};
+

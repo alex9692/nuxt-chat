@@ -27,6 +27,12 @@ router.patch(
   roomCtrl.addUsers
 );
 
+router.patch(
+  "/:roomId/updateMyRoom",
+  passport.authenticate("jwt", { session: false }),
+  roomCtrl.updateUserRoom
+);
+
 router
   .route("/:id")
   .get(passport.authenticate("jwt", { session: false }), roomCtrl.getRoomById);

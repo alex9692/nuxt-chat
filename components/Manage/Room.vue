@@ -8,7 +8,10 @@
         <h1 class="subtitle is-5 has-text-dark has-text-weight-normal">
           Update existing rooms
         </h1>
-        <form>
+        <p v-if="rooms.length === 0" class="has-text-danger">
+          You currently dont have any rooms
+        </p>
+        <form v-if="rooms.length > 0">
           <div class="field">
             <div class="control">
               <label class="label has-text-grey has-text-weight-medium"
@@ -24,30 +27,32 @@
               </div>
             </div>
           </div>
-          <div class="field">
-            <div class="control">
-              <label class="label has-text-grey has-text-weight-medium"
-                >Update room name</label
-              >
-              <input
-                type="text"
-                class="input"
-                v-model="roomName"
-                placeholder="enter a room name"
-              />
+          <div v-if="selectedRoom">
+            <div class="field">
+              <div class="control">
+                <label class="label has-text-grey has-text-weight-medium"
+                  >Update room name</label
+                >
+                <input
+                  type="text"
+                  class="input"
+                  v-model="roomName"
+                  placeholder="enter a room name"
+                />
+              </div>
             </div>
-          </div>
-          <div class="field">
-            <div class="control">
-              <label class="label has-text-grey has-text-weight-medium"
-                >Status</label
-              >
-              <div class="select">
-                <select v-model="status">
-                  <option disabled value="null">Change status</option>
-                  <option value="active">Active</option>
-                  <option value="inactive">Inactive</option>
-                </select>
+            <div class="field">
+              <div class="control">
+                <label class="label has-text-grey has-text-weight-medium"
+                  >Status</label
+                >
+                <div class="select">
+                  <select v-model="status">
+                    <option disabled value="null">Change status</option>
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                  </select>
+                </div>
               </div>
             </div>
           </div>
@@ -90,7 +95,7 @@ export default {
       selectedRoom: null,
       roomName: "",
       status: null,
-      newRoomName:''
+      newRoomName: ""
     };
   },
   watch: {

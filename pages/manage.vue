@@ -2,7 +2,10 @@
   <section class="section">
     <div class="columns">
       <div class="column is-3 is-offset-1">
-        <ManageAvatar :avatar="user.avatar" :username="user.username"></ManageAvatar>
+        <ManageAvatar
+          :avatar="user.avatar"
+          :username="user.username"
+        ></ManageAvatar>
       </div>
       <div class="column is-7">
         <div class="box">
@@ -33,6 +36,9 @@ export default {
       user: "auth/getUser",
       rooms: "room/getMyRooms"
     })
+  },
+  async fetch({ store }) {
+    await store.dispatch("room/FETCH_MYROOMS");
   }
 };
 </script>

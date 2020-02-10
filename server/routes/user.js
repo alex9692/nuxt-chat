@@ -19,4 +19,10 @@ router.get(
   passport.authenticate("jwt", { session: false }),
   userCtrl.getAllUsers
 );
+router.patch(
+  "/updateMe",
+  passport.authenticate("jwt", { session: false }),
+  userCtrl.updateUserInfo
+);
+
 module.exports = router;

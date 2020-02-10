@@ -106,3 +106,26 @@ exports.addUsers = async (req, res, next) => {
     next(errorHandler(error.message));
   }
 };
+
+exports.updateUserRoom = async (req, res, next) => {
+  try {
+    const { roomId } = req.params;
+    const { id } = req.user;
+    console.log(roomId, id);
+    const room = await Room.findOne({
+      $and: [{ _id: roomId }, { creator: id }]
+    });
+    for (let key in req.body) {
+      room[key] = req.body[key];
+    }
+    const newRoom = await room.save();
+    res.status(200).json({
+      status: "success",
+      data: {
+        room: newRoom
+      }
+    });
+  } catch (error) {
+    next(errorHandler(error.message));
+  }
+};
