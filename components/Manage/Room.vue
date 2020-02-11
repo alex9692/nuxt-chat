@@ -38,7 +38,14 @@
                   class="input"
                   v-model="roomName"
                   placeholder="enter a room name"
+                  @blur="$v.roomName.$touch()"
                 />
+                <div v-if="$v.roomName.$error">
+                  <span class="help is-danger" v-if="!$v.roomName.minLength">
+                    Room name must be atleast
+                    {{ $v.roomName.$params.minLength.min }} characters long.
+                  </span>
+                </div>
               </div>
             </div>
             <div class="field">
@@ -73,7 +80,14 @@
                 class="input"
                 v-model="newRoomName"
                 placeholder="enter new room name"
+                @blur="$v.newRoomName.$touch()"
               />
+              <div v-if="$v.newRoomName.$error">
+                <span class="help is-danger" v-if="!$v.newRoomName.minLength">
+                  Room name must be atleast
+                  {{ $v.newRoomName.$params.minLength.min }} characters long.
+                </span>
+              </div>
             </div>
           </div>
         </form>
@@ -83,6 +97,7 @@
 </template>
 
 <script>
+import { minLength } from "vuelidate/lib/validators";
 export default {
   props: {
     rooms: {
@@ -98,11 +113,40 @@ export default {
       newRoomName: ""
     };
   },
+  validations: {
+    roomName: {
+      minLength: minLength(4)
+    },
+    newRoomName: {
+      minLength: minLength(4)
+    }
+  },
+  methods: {
+    emitUpdatedValues(val) {
+      this.$store.dispatch("manage/room/SET_UPDATEDVALUES", val);
+      this.$store.commit("manage/room/SET_ALLOWSAVE", !this.$v.$invalid);
+    }
+  },
   watch: {
     selectedRoom(val) {
       if (val) {
         this.roomName = val.roomName;
         this.status = val.status;
+        this.$store.commit("manage/room/SET_ROOMID", val._id);
+      }
+    },
+    roomName(val, oldVal) {
+      if (oldVal) {
+        this.emitUpdatedValues({ roomName: val });
+      }
+    },
+    newRoomName(val) {
+      this.$store.commit("manage/room/SET_NEWROOM", val);
+      this.$store.commit("manage/room/SET_ALLOWSAVE", !this.$v.$invalid);
+    },
+    status(val, oldVal) {
+      if (oldVal) {
+        this.emitUpdatedValues({ status: val });
       }
     }
   }

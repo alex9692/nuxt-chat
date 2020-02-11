@@ -50,10 +50,10 @@ export const actions = {
   async LOGOUT({ commit, state, dispatch }) {
     await this.$axios.post("/api/v1/auth/logout");
     this.$socket.emit("log-out", state.user);
+    this.$router.push({ path: "/login" });
     commit("SET_USERINFO", { token: null, user: null });
     dispatch("message/EMPTY_MESSAGES", null, { root: true });
     dispatch("room/EMPTY_ROOMS", null, { root: true });
-    this.$router.push({ path: "/login" });
   }
 };
 

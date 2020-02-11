@@ -85,9 +85,6 @@ export default {
 .space:first-child {
   margin-top: 0;
 }
-.chat {
-  overflow-y: auto;
-}
 .menu {
   padding: 3rem 0.5rem;
 }

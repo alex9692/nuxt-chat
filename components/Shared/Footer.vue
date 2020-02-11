@@ -62,28 +62,30 @@
         <h1 class="title is-4 has-text-weight-normal has-text-centered">
           Social
         </h1>
-        <div class="icons">
-          <nuxt-link to="#">
-            <span class="icon fb has-text-white">
-              <i class="fab fa-facebook-f"></i>
-            </span>
-          </nuxt-link>
-          <nuxt-link to="#">
-            <span class="icon twt has-text-white">
-              <i class="fab fa-twitter"></i>
-            </span>
-          </nuxt-link>
-          <nuxt-link to="#">
-            <span class="icon ig has-text-white"
-              ><i class="fab fa-instagram"></i>
-            </span>
-          </nuxt-link>
-          <nuxt-link to="#">
-            <span class="icon has-background-dark has-text-white">
-              <i class="fab fa-github"></i>
-            </span>
-          </nuxt-link>
-        </div>
+        <client-only>
+          <div class="icons">
+            <nuxt-link to="#">
+              <span class="icon fb has-text-white">
+                <i class="fab fa-facebook-f"></i>
+              </span>
+            </nuxt-link>
+            <nuxt-link to="#">
+              <span class="icon twt has-text-white">
+                <i class="fab fa-twitter"></i>
+              </span>
+            </nuxt-link>
+            <nuxt-link to="#">
+              <span class="icon ig has-text-white"
+                ><i class="fab fa-instagram"></i>
+              </span>
+            </nuxt-link>
+            <nuxt-link to="#">
+              <span class="icon has-background-dark has-text-white">
+                <i class="fab fa-github"></i>
+              </span>
+            </nuxt-link>
+          </div>
+        </client-only>
       </div>
     </div>
     <div class="bottom">

@@ -13,10 +13,26 @@
                 v-model="avatarUrl"
                 class="input"
                 placeholder="enter avatar url"
+                @input="$v.avatarUrl.$touch()"
               />
-              <button class="button is-info" @click="show = false">
+
+              <button
+                :disabled="$v.$invalid"
+                class="button is-info"
+                @click="emitUpdatedValues(avatarUrl)"
+              >
                 Confirm
               </button>
+            </div>
+            <div v-if="$v.avatarUrl.$dirty">
+              <span v-if="!$v.avatarUrl.url" class="help is-danger"
+                >Url is invalid</span
+              >
+              <span
+                v-if="$v.avatarUrl.url && !$v.avatarUrl.supportedFileTypes"
+                class="help is-danger"
+                >Image not supported</span
+              >
             </div>
           </div>
         </div>
@@ -25,22 +41,22 @@
     <div class="card">
       <div class="card-content">
         <figure class="image is-3by2">
-          <img
-            @click="show = true"
-            :src="avatar"
-            alt=""
-          />
-          <span class="icon edit has-text-info">
-            <i class="far fa-2x fa-edit"></i>
-          </span>
+          <img @click="show = true" :src="avatar" alt="" />
+          <client-only
+            ><span class="icon edit has-text-info">
+              <i class="far fa-2x fa-edit"></i> </span
+          ></client-only>
         </figure>
       </div>
       <footer class="card-footer">
         <div class="card-footer-item">
-          <span class="icon">
-            <i class="fas fa-paperclip"></i>
-          </span>
-          <p>{{username}}</p>
+          <client-only>
+            <span class="icon">
+              <i class="fas fa-paperclip"></i>
+            </span>
+          </client-only>
+
+          <p>{{ username }}</p>
         </div>
       </footer>
     </div>
@@ -48,7 +64,9 @@
 </template>
 
 <script>
+import { url } from "vuelidate/lib/validators";
 import Modal from "~/components/Shared/Modal";
+import { supportedFileTypes } from "~/helpers/supportedFileType";
 export default {
   components: {
     Modal
@@ -68,6 +86,19 @@ export default {
       show: false,
       avatarUrl: this.avatar
     };
+  },
+  validations: {
+    avatarUrl: {
+      url,
+      supportedFileTypes
+    }
+  },
+  methods: {
+    emitUpdatedValues(val) {
+      this.show = false;
+      this.$store.dispatch("manage/user/SET_UPDATEDVALUES", { avatar: val });
+      this.$store.commit("manage/user/SET_ALLOWSAVE", !this.$v.$invalid);
+    }
   }
 };
 </script>

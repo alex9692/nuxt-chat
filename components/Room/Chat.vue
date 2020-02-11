@@ -10,7 +10,6 @@
     <section
       ref="messages"
       class="container sub-chat chat"
-      style="overflow-y: auto"
     >
       <Messages
         v-for="(message, index) in messages"
@@ -72,13 +71,6 @@ export default {
         this.message = "";
       }
     },
-    scollauto() {
-      // Create an observer and pass it a callback.
-      var observer = new MutationObserver(this.scrollToBottom);
-      // Tell it to look for new children that will change the height.
-      var config = { childList: true };
-      observer.observe(this.$refs.messages, config);
-    },
     scrollToBottom() {
       this.$refs.messages.scrollTop = this.$refs.messages.scrollHeight;
     }
@@ -119,5 +111,8 @@ export default {
   border: none;
   border-radius: 0;
   box-shadow: none;
+}
+.chat {
+  overflow: auto
 }
 </style>

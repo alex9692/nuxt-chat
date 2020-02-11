@@ -59,10 +59,9 @@ exports.createRoom = async (req, res, next) => {
     }
     req.body.users = [req.body.creator];
     const room = await Room.create(req.body);
-
     await User.findByIdAndUpdate(
-      id,
-      { $addToSet: { rooms: room.id } },
+      req.user.id,
+      { $addToSet: { rooms: room._id } },
       { runValidators: true }
     );
 

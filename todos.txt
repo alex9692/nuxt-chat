@@ -1,0 +1,3 @@
+add notification that there is new message:
+if there is a new message and room is not selected add small dot beside room name
+if there is a new message pop a small notification informing that there is a new message.
